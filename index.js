@@ -22,26 +22,8 @@ fs.readdir("./commands/", (err, files) => {
 
 bot.on("ready", async () => {
   console.log(`${bot.user.username} is online on ${bot.guilds.size} servers!`);
-  bot.user.setActivity("The Aterio Community", {type: "WATCHING"});
+  bot.user.setActivity("The airmalta Community", {type: "WATCHING"});
 
-});
-
-bot.on("guildMemberAdd", function(member) {
-
-  let membercount = bot.users.size;
-
-  let props = require("./database.js")
-  props.run(bot, member)
-  
-
-  const embed = new Discord.RichEmbed()
-  .setColor(0xffffff)
-  .setTitle('Aterio - Welcome')
-  .setDescription(`Hello ${member}, welcome to Aterio! Have a great time here.`)
-  .setThumbnail(member.user.avatarURL)
-  .setFooter(botconfig.footer)
-
-  member.guild.channels.find('name', 'welcome').send({ embed: embed });
 });
 
 bot.on("message", async message => {
@@ -51,7 +33,7 @@ bot.on("message", async message => {
   let prefix = botconfig.prefix;
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
-  let args = messageArray.slice(botconfig.prefix.length);
+  let args = messageArray.slice(1);
   let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if(commandfile) commandfile.run(bot,message,args);
 
